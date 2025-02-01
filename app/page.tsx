@@ -196,7 +196,7 @@ export default function Home() {
           {isReady ? (
             <div className='absolute w-full bg-zinc-100 rounded-lg p-4 text-center'>
               <div className='absolute left-1/2 -top-2 w-4 h-4 bg-zinc-100 transform -translate-x-1/2 rotate-45'></div>
-              <p className='text-zinc-900 font-bold text-lg'>I'm ready!</p>
+              <p className='text-zinc-900 font-bold text-lg'>I&apos;m ready!</p>
             </div>
           ) : (
             <div className='text-zinc-100 text-7xl font-extralight tracking-wider'>
