@@ -139,7 +139,7 @@ export default function Home() {
     100;
 
   return (
-    <main className='min-h-screen bg-[#8B5CF6] flex flex-col items-center justify-center p-6'>
+    <main className='min-h-screen bg-[#8B5CF6] flex flex-col items-center justify-center p-4'>
       <div className='w-full max-w-[320px] mx-auto flex flex-col items-center space-y-8'>
         <div className='flex space-x-4'>
           {(Object.keys(eggTypes) as Exclude<EggType, 'custom'>[]).map(
