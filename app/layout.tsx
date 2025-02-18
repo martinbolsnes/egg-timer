@@ -6,7 +6,7 @@ const dynapuff = DynaPuff({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Retro Egg Timer',
-  description: 'A colorful and cute egg timer app',
+  description: 'A colorful and jazzy egg timer app',
 };
 
 export default function RootLayout({
