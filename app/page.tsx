@@ -10,7 +10,7 @@ import { VolumeX, Lock, Unlock } from 'lucide-react';
 
 const SOFT_BOILED = 300;
 const MEDIUM_BOILED = 420;
-const HARD_BOILED = 600;
+const HARD_BOILED = 540;
 
 type EggType = 'soft' | 'medium' | 'hard' | 'custom';
 
@@ -32,6 +32,7 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isScreenLocked, setIsScreenLocked] = useState(false);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
+  const [showCustomInput, setShowCustomInput] = useState(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -50,6 +51,12 @@ export default function Home() {
       if (interval) clearInterval(interval);
     };
   }, [isActive, timeLeft]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load();
+    }
+  }, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -82,6 +89,9 @@ export default function Home() {
     setEggType(type);
     if (type !== 'custom') {
       setTimeLeft(eggTypes[type].time);
+      setShowCustomInput(false);
+    } else {
+      setShowCustomInput(true);
     }
     setIsActive(false);
     setIsReady(false);
@@ -141,7 +151,7 @@ export default function Home() {
   return (
     <main className='min-h-screen bg-[#8B5CF6] flex flex-col items-center justify-center p-4'>
       <div className='w-full max-w-[320px] mx-auto flex flex-col items-center space-y-8'>
-        <div className='flex space-x-4'>
+        <div className='flex flex-wrap justify-center gap-4'>
           {(Object.keys(eggTypes) as Exclude<EggType, 'custom'>[]).map(
             (type) => (
               <Button
@@ -158,8 +168,19 @@ export default function Home() {
               </Button>
             )
           )}
+          <Button
+            variant='outline'
+            onClick={() => selectEggType('custom')}
+            className={`text-zinc-800 bg-zinc-200 text-xl font-light hover:bg-zinc-300 ${
+              eggType === 'custom'
+                ? 'bg-amber-500 text-zinc-100 hover:bg-amber-600'
+                : ''
+            }`}
+          >
+            Custom
+          </Button>
         </div>
-        <CustomTimeInput onSetCustomTime={setCustomTime} />
+        {showCustomInput && <CustomTimeInput onSetCustomTime={setCustomTime} />}
         <div className='relative w-60 h-60'>
           <Shadow isActive={isActive} />
           <div
@@ -172,7 +193,7 @@ export default function Home() {
                   eggType === 'custom'
                     ? '#FFA500'
                     : eggTypes[eggType as Exclude<EggType, 'custom'>].color
-                } 65%, black)`,
+                } 90%, black)`,
                 '--yolk-color':
                   eggType === 'custom'
                     ? '#FFA500'
