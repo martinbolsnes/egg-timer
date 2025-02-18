@@ -43,7 +43,7 @@ export function EggCharacter({
         y={yolkY + yolkHeight - fillHeight}
         width='80'
         height={fillHeight}
-        fill={`color-mix(in srgb, ${yolkColor} 65%, black)`}
+        fill={`color-mix(in srgb, ${yolkColor} 90%, black)`}
         clipPath='url(#yolk-clip)'
         className={`transition-all duration-1000 ease-linear ${
           isFinished ? 'animate-fill-fade' : ''
